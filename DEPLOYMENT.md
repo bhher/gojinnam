@@ -113,18 +113,24 @@ jobs:
         uses: actions/deploy-pages@v4
 ```
 
-### 1.3 GitHub Secrets 설정
+### 1.3 GitHub Secrets 설정 (선택사항)
+
+**현재 프로젝트는 Firebase 설정이 코드에 하드코딩되어 있어서 환경 변수 설정이 필요 없습니다!**
+
+만약 Gemini AI 기능을 사용하려면 다음만 설정하면 됩니다:
 
 1. GitHub 저장소로 이동
 2. **Settings** → **Secrets and variables** → **Actions** 클릭
-3. **New repository secret** 클릭하여 다음 환경 변수 추가:
-   - `VITE_FIREBASE_API_KEY`
-   - `VITE_FIREBASE_AUTH_DOMAIN`
-   - `VITE_FIREBASE_PROJECT_ID`
-   - `VITE_FIREBASE_STORAGE_BUCKET`
-   - `VITE_FIREBASE_MESSAGING_SENDER_ID`
-   - `VITE_FIREBASE_APP_ID`
-   - `GEMINI_API_KEY`
+3. **New repository secret** 클릭하여 다음 환경 변수 추가 (선택사항):
+
+   | Secret 이름 (Name) | 설명 | 필수 여부 |
+   |-------------------|------|---------|
+   | `GEMINI_API_KEY` | Gemini API 키 (AI 기능 사용 시) | 선택사항 |
+
+   **참고:**
+   - Firebase 설정은 `services/firebase.ts` 파일에 이미 포함되어 있어 별도 설정 불필요
+   - Gemini AI 기능을 사용하지 않는다면 환경 변수 설정 없이도 배포 가능
+   - Gemini API 키가 없어도 빌드는 성공하지만, AI 기능은 동작하지 않습니다
 
 ### 1.4 GitHub Pages 활성화
 
@@ -160,15 +166,20 @@ Vercel은 가장 간단하고 빠른 배포 방법입니다. 자동 배포, 무�
    - **Install Command**: `npm install`
 
 4. **Environment Variables** 섹션에서 환경 변수 추가:
-   ```
-   VITE_FIREBASE_API_KEY=your-api-key
-   VITE_FIREBASE_AUTH_DOMAIN=your-auth-domain
-   VITE_FIREBASE_PROJECT_ID=your-project-id
-   VITE_FIREBASE_STORAGE_BUCKET=your-storage-bucket
-   VITE_FIREBASE_MESSAGING_SENDER_ID=your-sender-id
-   VITE_FIREBASE_APP_ID=your-app-id
-   GEMINI_API_KEY=your-gemini-key
-   ```
+   
+   **⚠️ 중요:** 변수 이름은 정확히 입력하고, 값은 실제 API 키/설정 값으로 입력하세요.
+   
+   각 환경 변수를 하나씩 추가:
+   - **Key**: `VITE_FIREBASE_API_KEY` → **Value**: 실제 Firebase API 키 (예: `AIzaSyAbc123...`)
+   - **Key**: `VITE_FIREBASE_AUTH_DOMAIN` → **Value**: 실제 authDomain (예: `myproject.firebaseapp.com`)
+   - **Key**: `VITE_FIREBASE_PROJECT_ID` → **Value**: 실제 프로젝트 ID (예: `myproject-12345`)
+   - **Key**: `VITE_FIREBASE_STORAGE_BUCKET` → **Value**: 실제 storageBucket (예: `myproject-12345.appspot.com`)
+   - **Key**: `VITE_FIREBASE_MESSAGING_SENDER_ID` → **Value**: 실제 messagingSenderId (예: `123456789`)
+   - **Key**: `VITE_FIREBASE_APP_ID` → **Value**: 실제 appId (예: `1:123456789:web:abc123`)
+   - **Key**: `GEMINI_API_KEY` → **Value**: 실제 Gemini API 키
+   
+   **로컬 .env 파일이 있다면:**
+   - `.env` 파일의 값들을 그대로 복사해서 사용하면 됩니다.
 
 5. **Deploy** 클릭
 
@@ -202,7 +213,18 @@ Vercel은 가장 간단하고 빠른 배포 방법입니다. 자동 배포, 무�
    - **Publish directory**: `dist`
    - **Base directory**: (비워두기)
 
-4. **Environment variables** 섹션에서 환경 변수 추가 (Vercel과 동일)
+4. **Environment variables** 섹션에서 환경 변수 추가:
+   
+   **⚠️ 중요:** 변수 이름은 정확히 입력하고, 값은 실제 API 키/설정 값으로 입력하세요.
+   
+   각 환경 변수를 하나씩 추가 (GitHub Secrets와 동일한 이름과 값 사용):
+   - `VITE_FIREBASE_API_KEY` = 실제 Firebase API 키
+   - `VITE_FIREBASE_AUTH_DOMAIN` = 실제 authDomain
+   - `VITE_FIREBASE_PROJECT_ID` = 실제 프로젝트 ID
+   - `VITE_FIREBASE_STORAGE_BUCKET` = 실제 storageBucket
+   - `VITE_FIREBASE_MESSAGING_SENDER_ID` = 실제 messagingSenderId
+   - `VITE_FIREBASE_APP_ID` = 실제 appId
+   - `GEMINI_API_KEY` = 실제 Gemini API 키
 
 5. **Deploy site** 클릭
 
