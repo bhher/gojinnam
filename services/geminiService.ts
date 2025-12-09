@@ -2,7 +2,7 @@ import { GoogleGenAI, GenerateContentResponse } from "@google/genai";
 import { AITaskType } from '../types';
 
 // Initialize the client.
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY || '' });
+const ai = new GoogleGenAI({ apiKey: process.env.REACT_APP_API_KEY || '' });
 
 const PROMPTS = {
   [AITaskType.PROFIT_ANALYSIS]: {
@@ -18,14 +18,23 @@ const PROMPTS = {
 };
 
 export const generateMarketingContent = async (task: AITaskType, userInput: string): Promise<string> => {
-  if (!process.env.API_KEY) {
-    return "Error: API Key is missing. Please configure process.env.API_KEY.";
+  const apiKey = process.env.REACT_APP_API_KEY;
+  
+  if (!apiKey || apiKey === 'your_api_key_here') {
+    console.error("API Key check:", { 
+      hasKey: !!apiKey, 
+      keyValue: apiKey ? `${apiKey.substring(0, 10)}...` : 'undefined' 
+    });
+    return "Error: API Key is missing. Please configure process.env.REACT_APP_API_KEY in .env file.";
   }
 
   const config = PROMPTS[task];
 
   try {
-    const response: GenerateContentResponse = await ai.models.generateContent({
+    // API 키가 변경되었을 수 있으므로 매번 새로 초기화
+    const aiClient = new GoogleGenAI({ apiKey });
+    
+    const response: GenerateContentResponse = await aiClient.models.generateContent({
       model: config.model,
       contents: userInput,
       config: {
@@ -35,8 +44,26 @@ export const generateMarketingContent = async (task: AITaskType, userInput: stri
     });
 
     return response.text || "No content generated.";
-  } catch (error) {
+  } catch (error: any) {
     console.error("Gemini API Error:", error);
-    return "Failed to generate content. Please try again later.";
+    console.error("Error details:", {
+      message: error?.message,
+      status: error?.status,
+      statusText: error?.statusText,
+      response: error?.response
+    });
+    
+    // 더 구체적인 에러 메시지 제공
+    if (error?.message?.includes('API key')) {
+      return "Error: Invalid API key. Please check your REACT_APP_API_KEY in .env file.";
+    }
+    if (error?.status === 401 || error?.status === 403) {
+      return "Error: Authentication failed. Please verify your API key is correct.";
+    }
+    if (error?.status === 429) {
+      return "Error: Rate limit exceeded. Please try again later.";
+    }
+    
+    return `Failed to generate content: ${error?.message || 'Unknown error'}. Please check the browser console for details.`;
   }
 };

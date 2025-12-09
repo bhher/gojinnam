@@ -43,10 +43,10 @@
                host: '0.0.0.0',
            },
            plugins: [react()],
-           define: {
-               'process.env.API_KEY': JSON.stringify(env.GEMINI_API_KEY),
-               'process.env.GEMINI_API_KEY': JSON.stringify(env.GEMINI_API_KEY)
-           },
+          define: {
+              'process.env.REACT_APP_API_KEY': JSON.stringify(env.REACT_APP_API_KEY),
+              'process.env.API_KEY': JSON.stringify(env.REACT_APP_API_KEY)
+          },
            resolve: {
                alias: {
                    '@': path.resolve(__dirname, '.'),
@@ -98,7 +98,7 @@ jobs:
           VITE_FIREBASE_STORAGE_BUCKET: ${{ secrets.VITE_FIREBASE_STORAGE_BUCKET }}
           VITE_FIREBASE_MESSAGING_SENDER_ID: ${{ secrets.VITE_FIREBASE_MESSAGING_SENDER_ID }}
           VITE_FIREBASE_APP_ID: ${{ secrets.VITE_FIREBASE_APP_ID }}
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          REACT_APP_API_KEY: ${{ secrets.REACT_APP_API_KEY }}
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
@@ -125,7 +125,7 @@ jobs:
 
    | Secret 이름 (Name) | 설명 | 필수 여부 |
    |-------------------|------|---------|
-   | `GEMINI_API_KEY` | Gemini API 키 (AI 기능 사용 시) | 선택사항 |
+   | `REACT_APP_API_KEY` | Gemini API 키 (AI 기능 사용 시) | 선택사항 |
 
    **참고:**
    - Firebase 설정은 `services/firebase.ts` 파일에 이미 포함되어 있어 별도 설정 불필요
@@ -176,7 +176,7 @@ Vercel은 가장 간단하고 빠른 배포 방법입니다. 자동 배포, 무�
    - **Key**: `VITE_FIREBASE_STORAGE_BUCKET` → **Value**: 실제 storageBucket (예: `myproject-12345.appspot.com`)
    - **Key**: `VITE_FIREBASE_MESSAGING_SENDER_ID` → **Value**: 실제 messagingSenderId (예: `123456789`)
    - **Key**: `VITE_FIREBASE_APP_ID` → **Value**: 실제 appId (예: `1:123456789:web:abc123`)
-   - **Key**: `GEMINI_API_KEY` → **Value**: 실제 Gemini API 키
+   - **Key**: `REACT_APP_API_KEY` → **Value**: 실제 Gemini API 키
    
    **로컬 .env 파일이 있다면:**
    - `.env` 파일의 값들을 그대로 복사해서 사용하면 됩니다.
@@ -224,7 +224,7 @@ Vercel은 가장 간단하고 빠른 배포 방법입니다. 자동 배포, 무�
    - `VITE_FIREBASE_STORAGE_BUCKET` = 실제 storageBucket
    - `VITE_FIREBASE_MESSAGING_SENDER_ID` = 실제 messagingSenderId
    - `VITE_FIREBASE_APP_ID` = 실제 appId
-   - `GEMINI_API_KEY` = 실제 Gemini API 키
+   - `REACT_APP_API_KEY` = 실제 Gemini API 키
 
 5. **Deploy site** 클릭
 

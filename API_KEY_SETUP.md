@@ -6,10 +6,10 @@ Gemini API 키를 설정하는 방법을 안내합니다.
 
 ### 방법 1: .env 파일 생성 (권장)
 
-프로젝트 루트 디렉토리(`E:\gojinnam`)에 `.env` 파일을 생성하고 다음 내용을 입력하세요:
+프로젝트 루트 디렉토리(`D:\junsuk\gojinnam\gojinnam`)에 `.env` 파일을 생성하고 다음 내용을 입력하세요:
 
 ```env
-GEMINI_API_KEY=여기에_발급받은_API_키_붙여넣기
+REACT_APP_API_KEY=여기에_발급받은_API_키_붙여넣기
 ```
 
 **예시:**
@@ -22,7 +22,7 @@ GEMINI_API_KEY=AIzaSyAbc123def456ghi789jkl012mno345pqr
 `.env.local` 파일을 생성해도 됩니다 (이미 .gitignore에 포함되어 있음):
 
 ```env
-GEMINI_API_KEY=여기에_발급받은_API_키_붙여넣기
+REACT_APP_API_KEY=여기에_발급받은_API_키_붙여넣기
 ```
 
 ### 확인 방법
@@ -52,7 +52,7 @@ GEMINI_API_KEY=여기에_발급받은_API_키_붙여넣기
 
 4. **새 Secret 추가**
    - **New repository secret** 버튼 클릭
-   - **Name**: `GEMINI_API_KEY` (정확히 이 이름으로 입력)
+   - **Name**: `REACT_APP_API_KEY` (정확히 이 이름으로 입력)
    - **Secret**: 발급받은 Gemini API 키 붙여넣기
    - **Add secret** 클릭
 
@@ -74,7 +74,7 @@ GEMINI_API_KEY=여기에_발급받은_API_키_붙여넣기
    - 왼쪽 메뉴에서 **Environment Variables** 클릭
 
 4. **환경 변수 추가**
-   - **Key**: `GEMINI_API_KEY`
+   - **Key**: `REACT_APP_API_KEY`
    - **Value**: 발급받은 Gemini API 키
    - **Environment**: Production, Preview, Development 모두 선택 (또는 원하는 환경만)
    - **Add** 클릭
@@ -99,7 +99,7 @@ GEMINI_API_KEY=여기에_발급받은_API_키_붙여넣기
 
 4. **환경 변수 추가**
    - **Add a variable** 클릭
-   - **Key**: `GEMINI_API_KEY`
+   - **Key**: `REACT_APP_API_KEY`
    - **Value**: 발급받은 Gemini API 키
    - **Save** 클릭
 
@@ -113,17 +113,17 @@ GEMINI_API_KEY=여기에_발급받은_API_키_붙여넣기
 
 ### 로컬 개발
 - [ ] 프로젝트 루트에 `.env` 파일 생성
-- [ ] `GEMINI_API_KEY=발급받은키` 입력
+- [ ] `REACT_APP_API_KEY=발급받은키` 입력
 - [ ] `npm run dev` 실행하여 테스트
 
 ### GitHub 배포
 - [ ] GitHub 저장소 → Settings → Secrets and variables → Actions
-- [ ] `GEMINI_API_KEY` Secret 추가
+- [ ] `REACT_APP_API_KEY` Secret 추가
 - [ ] 코드 푸시 후 Actions에서 배포 확인
 
 ### Vercel/Netlify 배포
 - [ ] 대시보드 → Settings → Environment Variables
-- [ ] `GEMINI_API_KEY` 추가
+- [ ] `REACT_APP_API_KEY` 추가
 - [ ] 재배포 확인
 
 ---
@@ -141,7 +141,7 @@ GEMINI_API_KEY=여기에_발급받은_API_키_붙여넣기
    - `Ctrl + C`로 서버 중지 후 `npm run dev` 다시 실행
 
 3. **환경 변수 이름 확인**
-   - 정확히 `GEMINI_API_KEY`로 입력했는지 확인
+   - 정확히 `REACT_APP_API_KEY`로 입력했는지 확인
    - 대소문자 구분 중요!
 
 4. **API 키 형식 확인**
@@ -181,7 +181,7 @@ gojinnam/
 
 문제가 계속되면:
 1. `.env` 파일 위치 확인
-2. 환경 변수 이름 확인 (`GEMINI_API_KEY`)
+2. 환경 변수 이름 확인 (`REACT_APP_API_KEY`)
 3. 개발 서버 재시작
 4. 브라우저 콘솔에서 에러 확인
 
